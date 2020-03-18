@@ -7,7 +7,7 @@ require_relative 'models/colors'
 DEFAULT_DIRECTORY = './reports'
 
 # You can also download reports from 'ratings' and 'crashes'
-REPORTS = ['installs', 'ratings', 'crashes', 'financial-stats/subscriptions']
+REPORTS = ['installs', 'ratings', 'crashes', 'subscriptions']
 
 # Leave this variable blank to download all csvs: app_version, carrier, country, device, language, os_version, overview and tablets
 FILTER_BY_REPORT = ''
