@@ -7,10 +7,10 @@ require_relative 'models/colors'
 DEFAULT_DIRECTORY = './reports'
 
 # You can also download reports from 'ratings' and 'crashes'
-REPORTS = ['installs']
+REPORTS = ['installs', 'ratings', 'crashes', 'financial-stats/subscriptions']
 
 # Leave this variable blank to download all csvs: app_version, carrier, country, device, language, os_version, overview and tablets
-FILTER_BY_REPORT = 'overview'
+FILTER_BY_REPORT = ''
 
 def welcome_message
   puts "+-+-+-+-+-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+"
@@ -26,7 +26,7 @@ end
 
 def url_prefix
   @url_prefix ||= begin
-    url = "gs://pubsite_prod_rev_%{id}/stats/"
+    url = "gs://pubsite_prod_rev_%{id}/"
     url % { id: ENV['ID'] || '00000000000000000000' }
   end
 end
@@ -75,7 +75,7 @@ end
 def import_files(base_directory)
   puts '*********** Starting Import ***********'
   REPORTS.each_with_index do |report, index|
-    path = "#{url_prefix}#{report}"
+    path = "#{url_prefix}" + (report != "subscriptions" ? "stats" : "financial-stats") + "/#{report}"
     report_directory = "#{base_directory}/#{report}"
 
     puts "#{index + 1}. Importing #{report} from #{path} and storing in #{report_directory.light_blue}"
